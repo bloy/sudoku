@@ -7,6 +7,7 @@ grid.Cell = Backbone.Model.extend({
       row: '',
       column: '',
       group: '',
+      selected: false,
       possible: [1,2,3,4,5,6,7,8,9],
     }
   },
@@ -22,7 +23,7 @@ grid.CellView = Backbone.View.extend({
   tagName: 'td',
   template: _.template($('#cell-template').html()),
   events: {
-    'click ': 'toggleSelected',
+    'click ': 'select',
   },
 
   initialize: function() {
@@ -31,12 +32,19 @@ grid.CellView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
-    this.input = this.$('.edit');
+    if (this.model.get('selected')) {
+      this.$el.addClass('selected');
+    } else {
+      this.$el.removeClass('selected');
+    }
     return this;
   },
 
-  toggleSelected: function() {
-    console.info('clicked on: ' + this.model.get('row') + ',' + this.model.get('column'));
+  select: function() {
+    App.cells.forEach(function(cell) {
+      cell.set('selected', false)
+    });
+    this.model.set('selected', true);
   },
 });
 
