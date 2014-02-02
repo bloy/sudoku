@@ -85,6 +85,9 @@ $(function() {
       return;
     }
     var key = event.keyCode - 48; // 48 is keycode for 0
-    console.log(key);
+    var selected = App.cells.findWhere({selected: true});
+    if (selected) {
+      selected.set({value: key});
+    }
   });
 });
