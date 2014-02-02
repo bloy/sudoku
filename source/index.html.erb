@@ -2,14 +2,13 @@
 title: Sudoku
 ---
 
-<table id="grid">
-  <% (1..9).each do |row| %>
-    <tr id="grid_row_<%= row %>">
-      <% (1..9).each do |column| %>
-        <td id="grid_cell_<%= row %>_<%= column %>" data-row="<%= row %>" data-column="<%= column %>">
-          <%= row %>, <%= column %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+<div id="gridapp">
+  <table id="grid">
+  </table>
+</div>
+
+<script type="text/template" id="cell-template">
+  <%%= row %>, <%%= column %>, <%%= group %>
+  <!-- -<span class="value"><%%= value %></span> -->
+  <!-- <span class="possible"><%%= possible %></span> -->
+</script>

@@ -10,10 +10,13 @@
     <title><%= current_page.data.title || "The Middleman" %></title>
     
     <%= stylesheet_link_tag "normalize", "all" %>
-    <%= javascript_include_tag  "all" %>
   </head>
   
   <body class="<%= page_classes %>">
     <%= yield %>
+    <%= javascript_include_tag  "vendor/jquery-2.1.0.min" %>
+    <%= javascript_include_tag  "vendor/underscore-min" %>
+    <%= javascript_include_tag  "vendor/backbone-min" %>
+    <%= javascript_include_tag  "grid" %>
   </body>
 </html>
