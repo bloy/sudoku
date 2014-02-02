@@ -80,14 +80,16 @@ grid.AppView = Backbone.View.extend({
 $(function() {
   App = new grid.AppView();
   $('body').keydown(function(event) {
-    // 49 is key code for 1, 57 is key code for 9
-    if (event.keyCode > 57 || event.keyCode < 49) {
-      return;
-    }
-    var key = event.keyCode - 48; // 48 is keycode for 0
-    var selected = App.cells.findWhere({selected: true});
-    if (selected) {
-      selected.set({value: key});
+    // 49 is key code for 1, 57 is key code for 9, 32 for space
+    if (event.keyCode == 32 || (event.keyCode <= 57 && event.keyCode >= 49)) {
+      var key = event.keyCode - 48; // 48 is keycode for 0
+      if (event.keyCode == 32) {
+        key = '';
+      }
+      var selected = App.cells.findWhere({selected: true});
+      if (selected) {
+        selected.set({enteredValue: key});
+      }
     }
   });
 });
