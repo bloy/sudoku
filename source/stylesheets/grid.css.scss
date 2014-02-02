@@ -1,11 +1,19 @@
 $bordercolor: black;
+$lightbordercolor: #888;
 
 #grid {
   margin: 2em;
-  border: 1px solid $bordercolor;
+  border: 2px solid $bordercolor;
 
   td {
     padding: 0.5em;
-    border: 1px solid $bordercolor;
+    border: 1px solid $lightbordercolor;
+    &:nth-child(3n) {
+      border-right: 2px solid $bordercolor;
+    }
+  }
+
+  tr:nth-child(3n) td {
+    border-bottom: 2px solid $bordercolor;
   }
 }
