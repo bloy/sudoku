@@ -4,12 +4,31 @@ grid.Cell = Backbone.Model.extend({
   defaults: function() {
     return {
       value: '',
+      enteredValue: '',
       row: '',
       column: '',
       group: '',
       selected: false,
+      valid: true,
       possible: [1,2,3,4,5,6,7,8,9],
     }
+  },
+
+  initialize: function() {
+    this.on('change:enteredValue', this.updateValue);
+    this.on('change:possible', this.updateValue);
+    this.on('change:value', this.updateSiblings);
+  },
+
+  updateValue: function() {
+    if (this.get('enteredValue') != '') {
+      this.set('value', this.get('enteredValue'));
+    } else {
+      this.set('value', '');
+    }
+  },
+
+  updateSiblings: function() {
   },
 });
 
