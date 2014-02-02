@@ -52,7 +52,6 @@ grid.CellView = Backbone.View.extend({
 grid.AppView = Backbone.View.extend({
   el: '#gridapp',
 
-
   initialize: function() {
     var rowTemplate = _.template('<tr id="grid_row_<%= row %>"></tr>');
     this.cells = new grid.CellCollection();
@@ -75,4 +74,12 @@ grid.AppView = Backbone.View.extend({
 
 $(function() {
   App = new grid.AppView();
+  $('body').keydown(function(event) {
+    // 49 is key code for 1, 57 is key code for 9
+    if (event.keyCode > 57 || event.keyCode < 49) {
+      return;
+    }
+    var key = event.keyCode - 48; // 48 is keycode for 0
+    console.log(key);
+  });
 });
