@@ -1,5 +1,5 @@
 $bordercolor: black;
-$lightbordercolor: #888;
+$lightbordercolor: #ccc;
 
 #grid {
   margin: 2em;
@@ -8,6 +8,23 @@ $lightbordercolor: #888;
   td {
     padding: 0.5em;
     border: 1px solid $lightbordercolor;
+    text-align: center;
+
+    span.value {
+      display: block;
+      font-size: 1.75em;
+      min-height: 1.75em;
+    }
+
+    span.possible {
+      display: block;
+      font-size: 0.375em;
+    }
+
+    &.selected {
+      background: #cc0;
+    }
+
     &:nth-child(3n) {
       border-right: 2px solid $bordercolor;
     }
