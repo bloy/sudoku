@@ -22,6 +22,11 @@ grid.CellCollection = Backbone.Collection.extend({
 grid.CellView = Backbone.View.extend({
   tagName: 'td',
   template: _.template($('#cell-template').html()),
+  className: function() {
+    return "row_" + this.model.get('row') +
+      " column_" + this.model.get('column') +
+      " group_" + this.model.get('group');
+  },
   events: {
     'click ': 'select',
   },
