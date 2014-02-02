@@ -25,6 +25,10 @@ grid.CellView = Backbone.View.extend({
     'click ': 'toggleSelected',
   },
 
+  initialize: function() {
+    this.listenTo(this.model, 'change', this.render);
+  },
+
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     this.input = this.$('.edit');
@@ -32,6 +36,7 @@ grid.CellView = Backbone.View.extend({
   },
 
   toggleSelected: function() {
+    console.info('clicked on: ' + this.model.get('row') + ',' + this.model.get('column'));
   },
 });
 
