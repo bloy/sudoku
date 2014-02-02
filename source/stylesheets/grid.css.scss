@@ -1,0 +1,11 @@
+$bordercolor: black;
+
+#grid {
+  margin: 2em;
+  border: 1px solid $bordercolor;
+
+  td {
+    padding: 0.5em;
+    border: 1px solid $bordercolor;
+  }
+}

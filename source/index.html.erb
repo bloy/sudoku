@@ -1,10 +1,15 @@
 ---
-title: Welcome to Middleman
+title: Sudoku
 ---
 
-<div class="welcome">
-  <h1>Middleman is Watching</h1>
-  <p class="doc">
-    <%= link_to "Read Online Documentation", "http://middlemanapp.com/" %>
-  </p><!-- .doc -->
-</div><!-- .welcome -->
+<table id="grid">
+  <% (1..9).each do |row| %>
+    <tr id="grid_row_<%= row %>">
+      <% (1..9).each do |column| %>
+        <td id="grid_cell_<%= row %>_<%= column %>" data-row="<%= row %>" data-column="<%= column %>">
+          <%= row %>, <%= column %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
