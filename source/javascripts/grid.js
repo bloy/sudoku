@@ -37,6 +37,8 @@ grid.Cell = Backbone.Model.extend({
   updateValue: function() {
     if (this.get('enteredValue') != '') {
       this.set('value', this.get('enteredValue'));
+    } else if (this.attributes.possible.length == 1) {
+      this.set('value', this.attributes.possible[0]);
     } else {
       this.set('value', '');
     }
