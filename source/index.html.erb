@@ -8,6 +8,6 @@ title: Sudoku
 </div>
 
 <script type="text/template" id="cell-template">
-  <span class="value"><%%= value %></span>
+  <span class="value <%%= (valid ? 'valid' : 'invalid') %>"><%%= value %></span>
   <span class="possible"><%%= possible %></span>
 </script>

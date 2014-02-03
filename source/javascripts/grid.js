@@ -18,6 +18,17 @@ grid.Cell = Backbone.Model.extend({
     this.on('change:enteredValue', this.updateValue);
     this.on('change:possible', this.updateValue);
     this.on('change:value', this.updateSiblings);
+    this.on('change:value', this.updateValidity);
+  },
+
+  initSiblings: function() {
+    var self = this;
+    this.siblings = this.collection.filter(function(cell) {
+      return (self.cid != cell.cid &&
+              (self.attributes.row == cell.attributes.row ||
+               self.attributes.column == cell.attributes.column ||
+               self.attributes.group == cell.attributes.group));
+    });
   },
 
   updateValue: function() {
@@ -28,7 +39,21 @@ grid.Cell = Backbone.Model.extend({
     }
   },
 
+  updateValidity: function() {
+    var thisValue = this.attributes.value;
+    if (thisValue == '') {
+      this.set('valid', true);
+    } else {
+      this.set('valid',
+               !this.siblings.some(function(c) {
+                 return c.attributes.value == thisValue;
+               }));
+    }
+  },
+
   updateSiblings: function() {
+    console.log('update siblings');
+    _.invoke(this.siblings, 'updateValidity');
   },
 });
 
@@ -93,6 +118,7 @@ grid.AppView = Backbone.View.extend({
         $('#grid_row_' + row).append(view.render().el);
       });
     });
+    cells.invoke('initSiblings');
   },
 });
 

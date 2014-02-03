@@ -14,6 +14,9 @@ $lightbordercolor: #ccc;
       display: block;
       font-size: 1.75em;
       min-height: 1.75em;
+      &.invalid {
+        color: #C00;
+      }
     }
 
     span.possible {
