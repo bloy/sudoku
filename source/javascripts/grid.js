@@ -1,5 +1,7 @@
 var grid = grid || {};
 
+grid.ALL_POSSIBLE = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 grid.Cell = Backbone.Model.extend({
   defaults: function() {
     return {
@@ -10,15 +12,16 @@ grid.Cell = Backbone.Model.extend({
       group: '',
       selected: false,
       valid: true,
-      possible: [1,2,3,4,5,6,7,8,9],
+      possible: grid.ALL_POSSIBLE,
     }
   },
 
   initialize: function() {
     this.on('change:enteredValue', this.updateValue);
     this.on('change:possible', this.updateValue);
-    this.on('change:value', this.updateSiblings);
     this.on('change:value', this.updateValidity);
+    this.on('change:value', this.updatePossible);
+    this.on('change:value', this.updateSiblings);
   },
 
   initSiblings: function() {
@@ -51,9 +54,26 @@ grid.Cell = Backbone.Model.extend({
     }
   },
 
+  updatePossible: function() {
+    var newValue = this.attributes.possible;
+    if (this.attributes.value != '') {
+      newValue = [this.attributes.value];
+    } else {
+      var siblingValues = this.siblings.map(function(c) {
+        return c.attributes.value
+      });
+      newValue = _.filter(grid.ALL_POSSIBLE, function(n) {
+        return !_.contains(siblingValues, n);
+      });
+    }
+    if (!_.isEqual(this.attributes.possible, newValue)) {
+      this.set('possible', newValue);
+    }
+  },
+
   updateSiblings: function() {
-    console.log('update siblings');
     _.invoke(this.siblings, 'updateValidity');
+    _.invoke(this.siblings, 'updatePossible');
   },
 });
 
